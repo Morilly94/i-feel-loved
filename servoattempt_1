@@ -1,0 +1,57 @@
+#include <Servo.h>
+Servo myservo1;
+Servo myservo2;
+Servo myservo3;
+Servo myservo4;
+Servo myservo5;
+void setup()
+{
+  myservo1.attach(0);
+  myservo2.attach(1);
+  myservo3.attach(2);
+  myservo4.attach(3);
+  myservo5.attach(4);
+  myservo1.write(90);
+  myservo2.write(90);
+  myservo3.write(90);
+  myservo4.write(90);
+  myservo5.write(90);
+
+  delay(1000);// wait 1 second
+}
+void loop()
+{
+  myservo1.write(80);
+    delay(2000);// wait 2 seconds
+  myservo1.write(90);// moves each servo individually by 10 degrees
+    delay(2000);
+  myservo2.write(80);
+    delay(2000);
+  myservo2.write(90);
+    delay(2000);
+  myservo3.write(80);
+    delay(2000);
+  myservo3.write(90);
+    delay(2000);
+  myservo4.write(80);
+    delay(2000);
+  myservo4.write(90);
+    delay(2000);
+  myservo5.write(80);
+    delay(2000);
+  myservo5.write(90);
+  delay(2000);
+    myservo1.write(80);
+    myservo2.write(80);
+    myservo3.write(80);
+    myservo4.write(80);
+    myservo5.write(80);
+      delay(2000);
+  myservo1.write(90);
+  myservo2.write(90);
+  myservo3.write(90);
+  myservo4.write(90);
+  myservo5.write(90);//moves all servos together at the same time by 10 degrees
+    delay (2000);
+    
+}// as its a loop it repeats this 2 part process
