@@ -1,0 +1,148 @@
+#include <Servo.h>
+
+Servo shoulder;
+Servo elbow;
+Servo wrist;
+Servo gripper;
+
+
+const int trigPin = 9;
+const int echoPin = 10;
+
+long duration;
+int distance;
+
+void setup() {
+  
+  shoulder.attach(3);    
+  elbow.attach(5);       
+  wrist.attach(6);      
+  gripper.attach(7);     
+  
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  
+  homeArm();
+ 
+  Serial.begin(9600);
+}
+
+void loop() {
+  
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
+  
+  Serial.print("Distance: ");
+  Serial.println(distance);
+  
+  
+  if (distance < 20) {  
+    writePhrase();
+  }
+  
+  
+  delay(1000);  
+}
+
+void homeArm() {
+  
+  shoulder.write(90);  
+  elbow.write(90); 
+  wrist.write(90);     
+  gripper.write(0);     
+  delay(1000);
+}
+
+void writePhrase() {
+  
+  
+  
+  writeLetter('I');
+  delay(500);  
+  
+  writeLetter(' ');  
+  delay(500);
+  
+  writeLetter('F');
+  delay(500);
+  
+  writeLetter('E');
+  delay(500);
+  
+  writeLetter('E');
+  delay(500);
+  
+  writeLetter('L');
+  delay(500);
+  
+  writeLetter(' ');
+  delay(500);
+  
+  writeLetter('L');
+  delay(500);
+  
+  writeLetter('O');
+  delay(500);
+  
+  writeLetter('V');
+  delay(500);
+  
+  writeLetter('E');
+  delay(500);
+  
+  writeLetter('D');
+  delay(500);
+  
+  
+}
+
+void writeLetter(char letter) {
+  
+  switch (letter) {
+    case 'I':
+      moveToPosition(90, 45, 90);  
+      break;
+    case 'F':
+      moveToPosition(90, 60, 90); 
+      break;
+    case 'E':
+      moveToPosition(90, 75, 90);  
+      break;
+    case 'L':
+      moveToPosition(90, 90, 90); 
+      break;
+    case ' ':
+      moveToPosition(90, 100, 90); 
+      break;
+    case 'O':
+      moveToPosition(90, 50, 90);  
+      break;
+    case 'V':
+      moveToPosition(90, 80, 90);  
+      break;
+    case 'D':
+      moveToPosition(90, 40, 90);  
+      break;
+    default:
+      break;
+  }
+  
+ 
+  gripper.write(180);  
+  delay(500);           
+  
+  gripper.write(0);   
+  delay(500);           
+}
+
+void moveToPosition(int shoulderPos, int elbowPos, int wristPos) {
+  
+  shoulder.write(shoulderPos);
+  elbow.write(elbowPos);
+  wrist.write(wristPos);
+  delay(1000);  
